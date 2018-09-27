@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+<body>
+    <div id="demo">
+        <blog-post 
+            v-for="item in data"
+            v-bind:item="item"
+            :key="item.id"
+            v-on:test-func="func1">
+        </blog-post>
+    </div>
+    <script>
+        // option + shift + f
+        Vue.component('blog-post', {
+            props: ['item'],
+            template: `
+            <div>
+                <div>{{item.title}}</div>
+                <div>{{item.id}}</div>
+                <button v-on:click="$emit('test-func',item.id)">older</button>
+                </div>
+            `
+        });
+        new Vue({
+            el: '#demo',
+            data: {
+                data: [{
+                    title: '1111',
+                    id: '1111'
+                }, {
+                    title: '2222',
+                    id: '2222'
+                }, {
+                    title: '3333',
+                    id: '3333'
+                }]
+            },
+            methods: {
+                func1: function(id){
+                    console.log(id)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
