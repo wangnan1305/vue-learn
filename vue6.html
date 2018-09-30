@@ -5,14 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>路由</title>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
 </head>
 <body>
     <div id="chacao">
         <submit-button>SAVE</submit-button>
     </div>
     <script>
+        'use strict';
+        let base = 1000;
+        let bonus = 0;
+        function getF(a){
+        if(a){
+            let bonus = 100;
+            return base + bonus;
+        }
+        return base + bonus;
+        }
+        console.log(getF(true))
     </script>
 </body>
 </html>
