@@ -15,7 +15,7 @@
             v-for="item in data"
             v-bind:item="item"
             :key="item.id"
-            v-on:test-func="func1">
+            @test-func="func1">
         </blog-post>
     </div>
     <script>
@@ -45,7 +45,7 @@
                 }]
             },
             methods: {
-                func1: function(id){
+                func1(id){
                     console.log(id)
                 }
             }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .video{
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd;
+        }
+        .pic{
+            width: 200px;
+            height: 50px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<body>
+    <div id="tab">
+        <div class="video" v-bind:style="videoStyle" @click="videoClick">video</div>
+        <div class="pic" @click="picClick">Pic</div>
+        <button @click="buttonClick">按钮</button>
+        <keep-alive>
+            <component :is="componentTab" v-bind:width="100" @value-change="videoWidthFunc" style="float: right;"></component>
+        </keep-alive>
+    </div>
+    <script>
+        Vue.component('video-block',{
+            data(){
+                return {
+                    w: this.width
+                }
+            },
+            props:{
+                width: Number
+            },
+            template: `<div>
+                <div class="w-control">
+                    <span>高度</span>
+                    <input type="number" v-model="this.w" @input="$emit('value-change',this.w)"></input>
+                </div>
+            </div>`
+        });
+        Vue.component('pic-block',{
+            template: `<div>Post Component</div>`
+        });
+        Vue.component('button-block',{
+            template: `<div>Archive Component</div>`
+        });
+        let vm = new Vue({
+            el: '#tab',
+            data: {
+                currentTab: 'video',
+                tabs: ['video','pic','button'],
+                videoWidth: 100
+            },
+            methods:{
+                videoClick(){
+                    this.currentTab = 'video';
+                },
+                picClick(){
+                    this.currentTab = 'pic';
+                },
+                buttonClick(){
+                    this.currentTab = 'button';
+                },
+                videoWidthFunc(){
+                    this.videoWidth = arguments[0];
+                }
+            },
+            computed: {
+                componentTab(){
+                    return this.currentTab + '-block'
+                },
+                videoStyle(){
+                    return {
+                        width: this.videoWidth > 500 ? 500 : this.videoWidth+ 'px'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
