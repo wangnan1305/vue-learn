@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function log()
+    function slowGenerate(){
+      console.log('start slow promise');
+      return new Promise(function(resolve){
+        setTimeout(function(){
+          resolve(20);
+          console.log('finished slow promise')
+        },2000)
+      })
+    }
+    function fastGenerate(){
+      console.log('start fast promise');
+      return new Promise(function(){
+       setTimeout(function(){
+         resolve(10);
+         console.log('finisned fast promise')
+       },1000) 
+      })
+    }
+    
+  </script>
+</body>
+</html>
