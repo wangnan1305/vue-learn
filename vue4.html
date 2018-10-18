@@ -17,7 +17,18 @@
     el: '#app',
     // template: `<div>{{message + '这是在template中的'}}</div>`,
     data: {
-      message: 'Vue的生命周期'
+      message: 'Vue的生命周期',
+      obj: {
+        a: 1,
+        b: 2
+      }
+    },
+    watch: {
+      obj: {
+        handler(value){
+          console.log(value)
+        }
+      }
     },
     render(create){
         return create('div',this.message + '这是render函数的')
