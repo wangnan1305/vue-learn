@@ -22,7 +22,6 @@ function defineReactFunc(obj, key ,value){
   observe(value); // 监听子属性
   Object.defineProperty(obj, key, {
     enumerable: true,
-    configurable: false,
     get: function(){
       return value;
     },
@@ -40,6 +39,17 @@ function defineReactFunc(obj, key ,value){
       }
     }
   })
+}
+function Dep(){
+  this.listeners = [];
+}
+Dep.prototype = {
+  addListener: function(){
+    
+  },
+  notify: function(){{
+
+  }}
 }
 function type(value){
   return Object.prototype.toString.call(value).slice(8,-1);
