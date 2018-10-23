@@ -9,14 +9,20 @@
 </head>
 <body>
     <div id="chacao">
-        <submit-button>SAVE</submit-button>
+        <submit-button>
+            <div slot="test">测试</div>
+            <div slot="submit">提交</div>
+        </submit-button>
     </div>
     <script>
         Vue.component('submit-button',{
             template:  `
+            <div>
+                <slot name="test">test</slot>
                 <button>
-                    <slot>提交</slot>
+                    <slot name="submit">submit</slot>
                 </button>
+                </div>
             `
         })
         new Vue({
