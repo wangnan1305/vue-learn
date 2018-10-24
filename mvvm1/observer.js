@@ -15,14 +15,18 @@ function observe(obj){
     return;
   }
   Object.keys(obj).forEach(function(key){
-    defineReactFunc(obj, key, obj[key]);
+    defineReactive(obj, key, obj[key]);
   })
 }
-function defineReactFunc(obj, key ,value){
+function defineReactive(obj, key ,value){
+  let dep = new Dep();
   observe(value); // 监听子属性
   Object.defineProperty(obj, key, {
     enumerable: true,
     get: function(){
+      if(Dep.target) {
+        dep.addListener(Dep.target);
+      }
       return value;
     },
     set: function(newValue){
@@ -30,11 +34,13 @@ function defineReactFunc(obj, key ,value){
         if(JSON.stringify(value) !== JSON.stringify(newValue)){
           log('监听到变化了::::', value, '----->', newValue);
           value = newValue;
+          dep.notify();
         }
       } else {
         if(value !== newValue){
           log('监听到变化了::::', value, '----->', newValue);
           value = newValue;
+          dep.notify();
         }
       }
     }
@@ -44,13 +50,16 @@ function Dep(){
   this.listeners = [];
 }
 Dep.prototype = {
-  addListener: function(){
-    
+  addListener: function(listener){
+    this.listeners.push(listener)
   },
   notify: function(){{
-
+    this.listeners.forEach(function(listener){
+      listener.sub();
+    })
   }}
 }
+Dep.target = null;
 function type(value){
   return Object.prototype.toString.call(value).slice(8,-1);
 }
