@@ -22,6 +22,10 @@
       return [].slice.call(arguments) 
       // return Array.prototype.slice.call(arguments)
     }
+    console.log(type(oDiv.childNodes))  // 'NodeList 类型， 是由Node.childNodes和document.querySelectorAll返回的'
+    function type(value){
+      return Object.prototype.toString.call(value).slice(8, -1);   // 获取构造函数名字
+    }
   </script>
 </body>
 </html>
